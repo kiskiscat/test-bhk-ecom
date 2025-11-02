@@ -3,14 +3,14 @@ import type { ConnectionLogger } from "../../helpers/logger";
 import styles from "./styles/index.module.css";
 import { LogLevel } from "../../helpers/logger/constants";
 import type { LogEntry } from "../../helpers/logger/types";
-import { formatTimestamp, getLevelName } from "./helpers";
+import { formatTimestamp } from "./helpers";
+import { getLevelName } from "../../helpers/logger/helpers";
 
 type Props = {
   logger: ConnectionLogger;
-  maxDisplayLogs: number;
 };
 
-export const LogViewer = ({ logger, maxDisplayLogs }: Props) => {
+export const LogViewer = ({ logger }: Props) => {
   const [logs, setLogs] = useState<LogEntry[]>([]);
   const [logLevel, setLogLevel] = useState(LogLevel.Debug);
 
@@ -37,19 +37,25 @@ export const LogViewer = ({ logger, maxDisplayLogs }: Props) => {
     setLogLevel(newValue);
   };
 
+  const buttonOnClick = () => {
+    logger.clearLogs();
+  };
+
   useEffect(() => {
     const updateLogs = () => {
       const allLogs = logger.getLogs(logLevel);
 
-      setLogs(allLogs.slice(-maxDisplayLogs));
+      setLogs(allLogs);
     };
 
     updateLogs();
 
     const interval = setInterval(updateLogs, 2000);
 
-    return () => clearInterval(interval);
-  }, [logger, logLevel, maxDisplayLogs]);
+    return () => {
+      clearInterval(interval);
+    };
+  }, [logger, logLevel]);
 
   return (
     <div className={styles.container}>
@@ -70,10 +76,7 @@ export const LogViewer = ({ logger, maxDisplayLogs }: Props) => {
             <option value={LogLevel.Warn}>WARN</option>
             <option value={LogLevel.Error}>ERROR</option>
           </select>
-          <button
-            onClick={() => logger.clearLogs()}
-            className={styles.clearButton}
-          >
+          <button onClick={buttonOnClick} className={styles.clearButton}>
             Очистить
           </button>
         </div>

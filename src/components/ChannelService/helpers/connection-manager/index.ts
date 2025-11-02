@@ -15,19 +15,19 @@ import {
 } from "../event-emitter/constants";
 
 export class ConnectionManager {
+  private readonly options: Options;
   private channels: Channel[];
+
   private currentChannel: Channel | null = null;
   private previousChannel: Channel | null = null;
 
-  private readonly options: Options;
-
   private intervals: Intervals | null = null;
 
-  private readonly testChannelConnection = new TestChannelConnection();
   private isTestingConnection = false;
   private isRecovering = false;
   private autoRecoveryTimeout: NodeJS.Timeout | null = null;
 
+  private readonly testChannelConnection = new TestChannelConnection();
   private readonly eventEmitter = new ConnectionEventEmitter();
   private readonly logger = new ConnectionLogger();
 
@@ -35,7 +35,6 @@ export class ConnectionManager {
     this.channels = channels;
     this.options = options;
 
-    // Подключаем логгер к событиям
     this.eventEmitter.on(ConnectionEventType.ChannelSwitch, (data) =>
       this.logger.logConnectionEvent(ConnectionEventType.ChannelSwitch, data),
     );
@@ -113,7 +112,6 @@ export class ConnectionManager {
         };
 
         this.updateChannelInfo(channel.id, info);
-
         this.eventEmitter.emit(ConnectionEventType.ChannelFailed, {
           channel: { ...channel, ...info },
           errorCount: info.errorCount,
@@ -143,10 +141,8 @@ export class ConnectionManager {
   private calculatePriority(
     errorCount: Channel["errorCount"],
   ): Channel["priority"] {
-    const result = Math.max(
-      CHANNEL_MIN_PRIORITY,
-      CHANNEL_MAX_PRIORITY - errorCount,
-    );
+    const maxValue = CHANNEL_MAX_PRIORITY - errorCount;
+    const result = Math.max(CHANNEL_MIN_PRIORITY, maxValue);
 
     return result;
   }
@@ -295,71 +291,71 @@ export class ConnectionManager {
     }, this.options.autoRecoveryDelay);
   }
 
-  private attemptRecoveryToPreferredChannel(): void {
+  private async attemptRecoveryToPreferredChannel(): Promise<void> {
     if (!this.currentChannel || this.isRecovering) return;
 
-    const preferredChannel = this.channels
-      .filter((ch) => ch.status === ChannelStatus.Idle)
-      .sort((first, second) => {
-        if (second.priority !== first.priority) {
-          return second.priority - first.priority;
-        } else {
-          return (second.lastSuccessful || 0) - (first.lastSuccessful || 0);
-        }
-      })[0];
-
-    if (
+    const filteredChannels = this.channels.filter(
+      (item) => item.status === ChannelStatus.Idle,
+    );
+    const sortedChannels = filteredChannels.sort((first, second) => {
+      if (second.priority !== first.priority) {
+        return second.priority - first.priority;
+      } else {
+        return (second.lastSuccessful || 0) - (first.lastSuccessful || 0);
+      }
+    });
+    const preferredChannel = sortedChannels[0];
+    const isReady =
       preferredChannel &&
-      preferredChannel.priority > this.currentChannel.priority
-    ) {
+      preferredChannel.priority > this.currentChannel.priority;
+
+    if (isReady) {
       this.isRecovering = true;
 
       this.logger.info(
         `Попытка восстановления к приоритетному каналу: ${preferredChannel.name}`,
       );
 
-      this.testChannelConnection
-        .test(preferredChannel)
-        .then((isAlive) => {
-          if (
-            isAlive &&
-            preferredChannel.priority > (this.currentChannel?.priority || 0)
-          ) {
-            this.previousChannel = this.currentChannel;
-            this.currentChannel = preferredChannel;
+      try {
+        const isAlive = await this.testChannelConnection.test(preferredChannel);
 
-            if (this.previousChannel) {
-              this.updateChannelStatus(
-                this.previousChannel.id,
-                ChannelStatus.Idle,
-              );
-            }
+        if (
+          isAlive &&
+          preferredChannel.priority > (this.currentChannel?.priority || 0)
+        ) {
+          this.previousChannel = this.currentChannel;
+          this.currentChannel = preferredChannel;
+
+          if (this.previousChannel) {
             this.updateChannelStatus(
-              preferredChannel.id,
-              ChannelStatus.Connected,
+              this.previousChannel.id,
+              ChannelStatus.Idle,
             );
-
-            this.eventEmitter.emit(ConnectionEventType.ChannelSwitch, {
-              from: this.previousChannel,
-              to: preferredChannel,
-              timestamp: Date.now(),
-              reason: ChannelSwitchReason.Recovery,
-            });
-
-            this.options.onError("");
           }
-        })
-        .catch(() => {
-          const info: UpdateInfo = {
-            status: ChannelStatus.Unavailable,
-            errorCount: preferredChannel.errorCount + 1,
-          };
+          this.updateChannelStatus(
+            preferredChannel.id,
+            ChannelStatus.Connected,
+          );
 
-          this.updateChannelInfo(preferredChannel.id, info);
-        })
-        .finally(() => {
-          this.isRecovering = false;
-        });
+          this.eventEmitter.emit(ConnectionEventType.ChannelSwitch, {
+            from: this.previousChannel,
+            to: preferredChannel,
+            timestamp: Date.now(),
+            reason: ChannelSwitchReason.Recovery,
+          });
+
+          this.options.onError("");
+        }
+      } catch {
+        const info: UpdateInfo = {
+          status: ChannelStatus.Unavailable,
+          errorCount: preferredChannel.errorCount + 1,
+        };
+
+        this.updateChannelInfo(preferredChannel.id, info);
+      } finally {
+        this.isRecovering = false;
+      }
     }
   }
 

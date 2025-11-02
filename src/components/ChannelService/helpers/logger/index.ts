@@ -1,6 +1,7 @@
 import { ConnectionEventType } from "../event-emitter/constants";
 import type { ConnectionEvent } from "../event-emitter/types";
 import { LogLevel } from "./constants";
+import { getLevelName } from "./helpers";
 import type { LogEntry } from "./types";
 
 export class ConnectionLogger {
@@ -33,12 +34,12 @@ export class ConnectionLogger {
       this.logs.shift();
     }
 
-    const levelNames = ["DEBUG", "INFO", "WARN", "ERROR"];
-    const levelName = levelNames[level];
+    const levelName = getLevelName(level);
     const timestamp = new Date(logEntry.timestamp).toISOString();
+    const compatibleContext = context ?? "";
 
     // eslint-disable-next-line no-console
-    console.log(`[${levelName}] ${timestamp} - ${message}`, context || "");
+    console.log(`[${levelName}] ${timestamp} - ${message}`, compatibleContext);
   }
 
   public debug(message: string, context?: Record<string, unknown>): void {
@@ -58,8 +59,16 @@ export class ConnectionLogger {
   }
 
   public getLogs(level?: LogLevel): LogEntry[] {
-    if (level) {
-      return this.logs.filter((log) => log.level >= level);
+    if (level !== undefined) {
+      if (level === LogLevel.Debug) {
+        const result = [...this.logs];
+
+        return result;
+      } else {
+        const result = this.logs.filter((item) => item.level === level);
+
+        return result;
+      }
     }
 
     return [...this.logs];
@@ -69,58 +78,60 @@ export class ConnectionLogger {
     this.logs = [];
   }
 
-  // Логирование событий соединения
   public logConnectionEvent<T extends keyof ConnectionEvent>(
     eventType: T,
     data: ConnectionEvent[T],
   ): void {
     switch (eventType) {
       case ConnectionEventType.ChannelSwitch: {
-        const switchData =
+        const exactData =
           data as ConnectionEvent[ConnectionEventType.ChannelSwitch];
-        this.info(
-          `Переключение канала: ${switchData.from?.name || "нет"} → ${switchData.to.name}`,
-          {
-            reason: switchData.reason,
-            fromChannelId: switchData.from?.id,
-            toChannelId: switchData.to.id,
-          },
-        );
+        const fromName = exactData.from?.name || "нет";
+
+        this.info(`Переключение канала: ${fromName} -> ${exactData.to.name}`, {
+          reason: exactData.reason,
+          fromChannelId: exactData.from?.id,
+          toChannelId: exactData.to.id,
+        });
         break;
       }
       case ConnectionEventType.ChannelFailed: {
-        const failData =
+        const exactData =
           data as ConnectionEvent[ConnectionEventType.ChannelFailed];
-        this.warn(`Канал недоступен: ${failData.channel.name}`, {
-          channelId: failData.channel.id,
-          errorCount: failData.errorCount,
+
+        this.warn(`Канал недоступен: ${exactData.channel.name}`, {
+          channelId: exactData.channel.id,
+          errorCount: exactData.errorCount,
         });
         break;
       }
       case ConnectionEventType.ChannelRecovered: {
-        const recoverData =
+        const exactData =
           data as ConnectionEvent[ConnectionEventType.ChannelRecovered];
-        this.info(`Канал восстановлен: ${recoverData.channel.name}`, {
-          channelId: recoverData.channel.id,
-          previousErrorCount: recoverData.previousErrorCount,
+
+        this.info(`Канал восстановлен: ${exactData.channel.name}`, {
+          channelId: exactData.channel.id,
+          previousErrorCount: exactData.previousErrorCount,
         });
         break;
       }
       case ConnectionEventType.AllChannelsFailed: {
-        const allFailData =
+        const exactData =
           data as ConnectionEvent[ConnectionEventType.AllChannelsFailed];
+
         this.error(`Все каналы недоступны`, {
-          channelCount: allFailData.channelCount,
+          channelCount: exactData.channelCount,
         });
         break;
       }
       case ConnectionEventType.ConnectionRestored: {
-        const restoreData =
+        const exactData =
           data as ConnectionEvent[ConnectionEventType.ConnectionRestored];
+
         this.info(
-          `Соединение восстановлено через канал: ${restoreData.channel.name}`,
+          `Соединение восстановлено через канал: ${exactData.channel.name}`,
           {
-            channelId: restoreData.channel.id,
+            channelId: exactData.channel.id,
           },
         );
         break;

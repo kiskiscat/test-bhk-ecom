@@ -4,3 +4,10 @@ export enum LogLevel {
   Warn = 2,
   Error = 3,
 }
+
+export enum LevelName {
+  Debug = "DEBUG",
+  Info = "INFO",
+  Warn = "WARN",
+  Error = "ERROR",
+}

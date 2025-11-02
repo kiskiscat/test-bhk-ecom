@@ -53,9 +53,9 @@ export const CHANNELS: Channel[] = [
 ];
 
 export const INITIAL_OPTIONS: InitialOptions = {
-  checkIntervalTime: 2000,
-  retryIntervalTime: 15000,
-  autoRecoveryDelay: 30000,
+  checkIntervalTime: 1000,
+  retryIntervalTime: 5000,
+  autoRecoveryDelay: 10000,
 };
 
 export const ALL_CHANNELS_HEADING_AREA_LABELLEDBY = "all-channels-heading";

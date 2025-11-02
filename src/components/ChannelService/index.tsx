@@ -35,7 +35,7 @@ export const ChannelService = () => {
     <article role="main" className={styles.main}>
       <h1 className={styles.title}>Отказоустойчивый сервис канала связи</h1>
 
-      {errorMessage && (
+      {errorMessage.length !== 0 && (
         <div className={styles.errorAlert}>
           <strong className={styles.errorAlertText}>Ошибка соединения:</strong>
           {errorMessage}
@@ -79,10 +79,7 @@ export const ChannelService = () => {
       </section>
       {connectionManager && (
         <section className={styles.logsSection}>
-          <LogViewer
-            logger={connectionManager.getLogger()}
-            maxDisplayLogs={50}
-          />
+          <LogViewer logger={connectionManager.getLogger()} />
         </section>
       )}
     </article>
