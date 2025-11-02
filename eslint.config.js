@@ -1,15 +1,18 @@
 import eslint from "@eslint/js";
-import eslintConfigPrettier from "eslint-config-prettier/flat";
-import eslintRules from "eslint/config";
+import eslintConfigPrettier from "eslint-config-prettier";
+import tseslint from "typescript-eslint";
 
-const config = eslintRules.defineConfig([
+export default tseslint.config(
   // Ignore exact files and catalogs
   {
-    ignores: ["node_modules/", "postcss.config.cjs"],
+    ignores: ["node_modules/", "postcss.config.cjs", "dist/", "build/"],
   },
 
   // Basic recommendations
   eslint.configs.recommended,
+
+  // TypeScript recommendations
+  ...tseslint.configs.recommended,
 
   // Common rules
   {
@@ -23,6 +26,4 @@ const config = eslintRules.defineConfig([
 
   // Turns off all rules that are unnecessary or might conflict with Prettier.
   eslintConfigPrettier,
-]);
-
-export default config;
+);
