@@ -1,0 +1,53 @@
+:focus {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-violet);
+  outline-offset: 1px;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section,
+img {
+  display: block;
+}
+
+body {
+  position: relative;
+  min-height: 100vh;
+  font-family: var(--font-family-system);
+  line-height: 1.5;
+  color: var(--color-black);
+  background-color: var(--color-white);
+  scroll-behavior: smooth;
+  text-rendering: optimizespeed;
+}
+
+html {
+  position: relative;
+  height: 100%;
+  overflow: hidden scroll;
+  font-size: 100%;
+}

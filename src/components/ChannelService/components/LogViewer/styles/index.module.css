@@ -1,0 +1,133 @@
+.container {
+  padding: 16px;
+  background-color: #ffffff;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgb(0 0 0 / 10%);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.controls {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.levelLabel {
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+}
+
+.levelSelect {
+  padding: 4px 8px;
+  font-size: 14px;
+  color: #1f2937;
+  background-color: #ffffff;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+}
+
+.levelSelect:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgb(59 130 246 / 10%);
+}
+
+.clearButton {
+  padding: 6px 12px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #ffffff;
+  cursor: pointer;
+  background-color: #ef4444;
+  border: none;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.clearButton:hover {
+  background-color: #dc2626;
+}
+
+.clearButton:active {
+  background-color: #b91c1c;
+}
+
+.logsArea {
+  height: 300px;
+  padding: 12px;
+  overflow-y: auto;
+  font-size: 14px;
+  line-height: 1.4;
+  background-color: #f8f9fa;
+  border: 1px solid #e5e7eb;
+  border-radius: 4px;
+}
+
+.emptyMessage {
+  padding-top: 20px;
+  font-style: italic;
+  color: #6b7280;
+  text-align: center;
+}
+
+.logEntry {
+  padding: 2px 0;
+  margin-bottom: 4px;
+}
+
+.timestamp {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.levelBadge {
+  padding: 2px 4px;
+  font-size: 11px;
+  font-weight: bold;
+  border-radius: 2px;
+}
+
+.levelBadge.debug {
+  color: #6b7280;
+  background-color: #f3f4f6;
+}
+
+.levelBadge.info {
+  color: #3b82f6;
+  background-color: #dbeafe;
+}
+
+.levelBadge.warn {
+  color: #f59e0b;
+  background-color: #fef3c7;
+}
+
+.levelBadge.error {
+  color: #ef4444;
+  background-color: #fee2e2;
+}
+
+.message {
+  color: #1f2937;
+}
+
+.context {
+  margin-left: 8px;
+  font-size: 12px;
+  color: #6b7280;
+}

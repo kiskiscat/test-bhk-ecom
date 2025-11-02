@@ -1,0 +1,49 @@
+.container {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 8px 16px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.label {
+  font-weight: 600;
+  color: #374151;
+}
+
+.value {
+  color: #1f2937;
+}
+
+.url {
+  font-size: 12px;
+  color: #6b7280;
+  word-break: break-all;
+}
+
+.errorCount {
+  margin-left: 8px;
+  font-weight: 500;
+  color: #dc2626;
+}
+
+.timeValue {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.successTime {
+  font-size: 13px;
+  font-weight: 500;
+  color: #059669;
+}
+
+.statusContainer {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.statusText {
+  font-weight: 500;
+}
