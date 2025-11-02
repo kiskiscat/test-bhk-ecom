@@ -1,14 +1,15 @@
 import { type Channel, type InitialOptions } from "../types";
 
-export const CHANNEL_MAX_PRIORITY = 10;
-export const CHANNEL_MIN_PRIORITY = 0;
-
-export const INITIAL_CHANNEL_ERROR_COUNT = 0;
 export enum ChannelStatus {
   Idle = "IDLE",
   Connected = "CONNECTED",
   Unavailable = "UNAVAILABLE",
 }
+
+export const CHANNEL_MAX_PRIORITY = 10;
+export const CHANNEL_MIN_PRIORITY = 0;
+export const INITIAL_CHANNEL_ERROR_COUNT = 0;
+
 export const CHANNELS: Channel[] = [
   {
     id: "1",

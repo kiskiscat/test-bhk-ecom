@@ -176,15 +176,15 @@ export class ConnectionManager {
       this.updateChannelStatus(availableChannel.id, ChannelStatus.Connected);
 
       this.eventEmitter.emit(ConnectionEventType.ChannelSwitch, {
-        from: this.currentChannel,
+        from: this.previousChannel,
         to: availableChannel,
         timestamp: Date.now(),
-        reason: this.currentChannel
+        reason: this.previousChannel
           ? ChannelSwitchReason.Failure
           : ChannelSwitchReason.Initial,
       });
 
-      if (!this.currentChannel) {
+      if (!this.previousChannel) {
         this.eventEmitter.emit(ConnectionEventType.ConnectionRestored, {
           channel: availableChannel,
           timestamp: Date.now(),
@@ -301,7 +301,10 @@ export class ConnectionManager {
       if (second.priority !== first.priority) {
         return second.priority - first.priority;
       } else {
-        return (second.lastSuccessful || 0) - (first.lastSuccessful || 0);
+        const compatibleSecondLastSuccessful = second.lastSuccessful || 0;
+        const compatibleFirstLastSuccessful = first.lastSuccessful || 0;
+
+        return compatibleSecondLastSuccessful - compatibleFirstLastSuccessful;
       }
     });
     const preferredChannel = sortedChannels[0];

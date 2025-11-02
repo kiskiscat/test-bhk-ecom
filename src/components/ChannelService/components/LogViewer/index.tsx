@@ -1,10 +1,12 @@
-import { useState, useEffect } from "react";
-import type { ConnectionLogger } from "../../helpers/logger";
-import styles from "./styles/index.module.css";
+import { useEffect, useState } from "react";
+
 import { LogLevel } from "../../helpers/logger/constants";
+import { getLevelName } from "../../helpers/logger/helpers";
+import type { ConnectionLogger } from "../../helpers/logger";
 import type { LogEntry } from "../../helpers/logger/types";
 import { formatTimestamp } from "./helpers";
-import { getLevelName } from "../../helpers/logger/helpers";
+
+import styles from "./styles/index.module.css";
 
 type Props = {
   logger: ConnectionLogger;
@@ -31,18 +33,20 @@ export const LogViewer = ({ logger }: Props) => {
     }
   };
 
-  const selectOnChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const selectOnChange = (
+    event: React.ChangeEvent<HTMLSelectElement>,
+  ): void => {
     const newValue = Number(event.target.value) as LogLevel;
 
     setLogLevel(newValue);
   };
 
-  const buttonOnClick = () => {
+  const buttonOnClick = (): void => {
     logger.clearLogs();
   };
 
   useEffect(() => {
-    const updateLogs = () => {
+    const updateLogs = (): void => {
       const allLogs = logger.getLogs(logLevel);
 
       setLogs(allLogs);

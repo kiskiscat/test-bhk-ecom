@@ -8,36 +8,34 @@
 
 .label {
   font-weight: 600;
-  color: var(--color-secondary-text);
+  color: var(--neutral-600);
 }
 
 .value {
-  color: var(--color-primary-text);
+  color: var(--neutral-700);
 }
 
-/* URL стили */
 .url {
-  font-family: Monaco, Menlo, "Ubuntu Mono", monospace;
   font-size: 12px;
-  color: var(--color-muted-text);
+  color: var(--neutral-500);
   word-break: break-all;
 }
 
 .errorCount {
   margin-left: 8px;
   font-weight: 500;
-  color: var(--color-error);
+  color: var(--red-600);
 }
 
 .timeValue {
   font-size: 13px;
-  color: var(--color-muted-text);
+  color: var(--neutral-500);
 }
 
 .successTime {
   font-size: 13px;
   font-weight: 500;
-  color: var(--color-success);
+  color: var(--green-600);
 }
 
 .statusContainer {

@@ -8,7 +8,7 @@
   margin-bottom: 24px;
   font-size: 28px;
   font-weight: 600;
-  color: var(--color-primary-text);
+  color: var(--neutral-700);
 }
 
 .errorAlert {
@@ -17,9 +17,9 @@
   align-items: center;
   padding: 12px;
   margin-bottom: 16px;
-  color: var(--color-error);
-  background-color: var(--color-error-light);
-  border: 1px solid var(--color-error-border);
+  color: var(--red-600);
+  background-color: var(--red-50);
+  border: 1px solid var(--red-100);
   border-radius: 4px;
 }
 
@@ -36,14 +36,14 @@
   margin-bottom: 12px;
   font-size: 20px;
   font-weight: 500;
-  color: var(--color-success);
-  border-bottom: 2px solid var(--color-success);
+  color: var(--green-600);
+  border-bottom: 2px solid var(--green-600);
 }
 
 .activeChannelContainer {
   padding: 16px;
-  background-color: var(--color-channel-connected);
-  border: 1px solid var(--color-channel-connected-border);
+  background-color: var(--green-100);
+  border: 1px solid var(--green-200);
   border-radius: 4px;
 }
 
@@ -55,7 +55,7 @@
   margin-bottom: 16px;
   font-size: 20px;
   font-weight: 500;
-  color: var(--color-primary-text);
+  color: var(--neutral-700);
 }
 
 .channelsGrid {
@@ -65,7 +65,7 @@
 
 .channelCard {
   padding: 12px;
-  border: 1px solid var(--color-border-light);
+  border: 1px solid var(--neutral-200);
   border-radius: 4px;
   transition: box-shadow 0.2s ease;
 }
@@ -75,18 +75,18 @@
 }
 
 .channelCard.connected {
-  background-color: var(--color-channel-connected);
-  border-color: var(--color-channel-connected-border);
+  background-color: var(--green-100);
+  border-color: var(--green-200);
 }
 
 .channelCard.unavailable {
-  background-color: var(--color-channel-unavailable);
-  border-color: var(--color-channel-unavailable-border);
+  background-color: var(--red-50);
+  border-color: var(--red-100);
 }
 
 .channelCard.idle {
-  background-color: var(--color-channel-idle);
-  border-color: var(--color-channel-idle-border);
+  background-color: var(--neutral-100);
+  border-color: var(--neutral-200);
 }
 
 .logsSection {

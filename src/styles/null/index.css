@@ -3,7 +3,7 @@
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-primary);
+  outline: 2px solid var(--blue-600);
   outline-offset: 1px;
 }
 
@@ -39,8 +39,8 @@ body {
   min-height: 100vh;
   font-family: var(--font-family-system);
   line-height: 1.5;
-  color: var(--color-primary-text);
-  background-color: var(--color-surface);
+  color: var(--neutral-700);
+  background-color: var(--white);
   scroll-behavior: smooth;
   text-rendering: optimizespeed;
 }

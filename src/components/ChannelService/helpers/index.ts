@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
+
+import { ChannelStatus, INITIAL_OPTIONS } from "../constants";
 import { type Channel } from "../types";
 import { ConnectionManager } from "./connection-manager";
-import { ChannelStatus, INITIAL_OPTIONS } from "../constants";
 
 export const useConnectionManager = (initialChannels: Channel[]) => {
   const [channels, setChannels] = useState<Channel[]>(initialChannels);
