@@ -1,7 +1,7 @@
 .container {
   padding: 16px;
-  background-color: #ffffff;
-  border: 1px solid #d1d5db;
+  background-color: var(--color-white);
+  border: 1px solid var(--color-border);
   border-radius: 6px;
   box-shadow: 0 1px 3px rgb(0 0 0 / 10%);
 }
@@ -17,7 +17,7 @@
   margin: 0;
   font-size: 18px;
   font-weight: 600;
-  color: #1f2937;
+  color: var(--color-text-primary);
 }
 
 .controls {
@@ -29,21 +29,21 @@
 .levelLabel {
   font-size: 14px;
   font-weight: 500;
-  color: #374151;
+  color: var(--color-text-secondary);
 }
 
 .levelSelect {
   padding: 4px 8px;
   font-size: 14px;
-  color: #1f2937;
-  background-color: #ffffff;
-  border: 1px solid #d1d5db;
+  color: var(--color-text-primary);
+  background-color: var(--color-white);
+  border: 1px solid var(--color-border);
   border-radius: 4px;
 }
 
 .levelSelect:focus {
   outline: none;
-  border-color: #3b82f6;
+  border-color: var(--color-primary);
   box-shadow: 0 0 0 3px rgb(59 130 246 / 10%);
 }
 
@@ -51,20 +51,20 @@
   padding: 6px 12px;
   font-size: 14px;
   font-weight: 500;
-  color: #ffffff;
+  color: var(--color-white);
   cursor: pointer;
-  background-color: #ef4444;
+  background-color: var(--color-error);
   border: none;
   border-radius: 4px;
   transition: background-color 0.2s ease;
 }
 
 .clearButton:hover {
-  background-color: #dc2626;
+  background-color: var(--color-error-hover);
 }
 
 .clearButton:active {
-  background-color: #b91c1c;
+  background-color: var(--color-error-active);
 }
 
 .logsArea {
@@ -73,15 +73,15 @@
   overflow-y: auto;
   font-size: 14px;
   line-height: 1.4;
-  background-color: #f8f9fa;
-  border: 1px solid #e5e7eb;
+  background-color: var(--color-gray-100);
+  border: 1px solid var(--color-border-light);
   border-radius: 4px;
 }
 
 .emptyMessage {
   padding-top: 20px;
   font-style: italic;
-  color: #6b7280;
+  color: var(--color-text-muted);
   text-align: center;
 }
 
@@ -92,7 +92,7 @@
 
 .timestamp {
   font-size: 12px;
-  color: #6b7280;
+  color: var(--color-text-muted);
 }
 
 .levelBadge {
@@ -103,31 +103,31 @@
 }
 
 .levelBadge.debug {
-  color: #6b7280;
-  background-color: #f3f4f6;
+  color: var(--color-text-muted);
+  background-color: var(--color-gray-200);
 }
 
 .levelBadge.info {
-  color: #3b82f6;
-  background-color: #dbeafe;
+  color: var(--color-primary);
+  background-color: var(--color-primary-light);
 }
 
 .levelBadge.warn {
-  color: #f59e0b;
-  background-color: #fef3c7;
+  color: var(--color-warning);
+  background-color: var(--color-warning-light);
 }
 
 .levelBadge.error {
-  color: #ef4444;
-  background-color: #fee2e2;
+  color: var(--color-error);
+  background-color: var(--color-error-light);
 }
 
 .message {
-  color: #1f2937;
+  color: var(--color-text-primary);
 }
 
 .context {
   margin-left: 8px;
   font-size: 12px;
-  color: #6b7280;
+  color: var(--color-text-muted);
 }

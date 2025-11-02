@@ -8,7 +8,7 @@
   margin-bottom: 24px;
   font-size: 28px;
   font-weight: 600;
-  color: #1f2937;
+  color: var(--color-primary-text);
 }
 
 .errorAlert {
@@ -17,9 +17,9 @@
   align-items: center;
   padding: 12px;
   margin-bottom: 16px;
-  color: #dc2626;
-  background-color: #fee2e2;
-  border: 1px solid #fecaca;
+  color: var(--color-error);
+  background-color: var(--color-error-light);
+  border: 1px solid var(--color-error-border);
   border-radius: 4px;
 }
 
@@ -36,14 +36,14 @@
   margin-bottom: 12px;
   font-size: 20px;
   font-weight: 500;
-  color: #059669;
-  border-bottom: 2px solid #059669;
+  color: var(--color-success);
+  border-bottom: 2px solid var(--color-success);
 }
 
 .activeChannelContainer {
   padding: 16px;
-  background-color: #d1fae5;
-  border: 1px solid #a7f3d0;
+  background-color: var(--color-channel-connected);
+  border: 1px solid var(--color-channel-connected-border);
   border-radius: 4px;
 }
 
@@ -55,7 +55,7 @@
   margin-bottom: 16px;
   font-size: 20px;
   font-weight: 500;
-  color: #1f2937;
+  color: var(--color-primary-text);
 }
 
 .channelsGrid {
@@ -65,7 +65,7 @@
 
 .channelCard {
   padding: 12px;
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--color-border-light);
   border-radius: 4px;
   transition: box-shadow 0.2s ease;
 }
@@ -75,18 +75,18 @@
 }
 
 .channelCard.connected {
-  background-color: #d1fae5;
-  border-color: #a7f3d0;
+  background-color: var(--color-channel-connected);
+  border-color: var(--color-channel-connected-border);
 }
 
 .channelCard.unavailable {
-  background-color: #fee2e2;
-  border-color: #fecaca;
+  background-color: var(--color-channel-unavailable);
+  border-color: var(--color-channel-unavailable-border);
 }
 
 .channelCard.idle {
-  background-color: #f3f4f6;
-  border-color: #e5e7eb;
+  background-color: var(--color-channel-idle);
+  border-color: var(--color-channel-idle-border);
 }
 
 .logsSection {

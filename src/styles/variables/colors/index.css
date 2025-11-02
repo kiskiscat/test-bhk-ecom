@@ -1,5 +1,74 @@
+/* Цветовая палитра проекта */
 :root {
-  --color-black: black;
-  --color-white: white;
-  --color-violet: violet;
+  /* Основные цвета интерфейса */
+  --color-primary: #3b82f6;
+  --color-primary-light: #dbeafe;
+  --color-primary-text: #1f2937;
+  --color-secondary-text: #374151;
+  --color-muted-text: #6b7280;
+  --color-text-primary: #1f2937;
+  --color-text-secondary: #374151;
+  --color-text-muted: #6b7280;
+
+  /* Цвета состояний */
+  --color-success: #059669;
+  --color-success-light: #d1fae5;
+  --color-success-border: #a7f3d0;
+  --color-error: #dc2626;
+  --color-error-light: #fee2e2;
+  --color-error-border: #fecaca;
+  --color-warning: #f59e0b;
+  --color-warning-light: #fef3c7;
+  --color-info: #3b82f6;
+  --color-info-light: #dbeafe;
+  --color-debug: #6b7280;
+  --color-debug-light: #f3f4f6;
+
+  /* Нейтральные цвета */
+  --color-neutral-50: #f9fafb;
+  --color-neutral-100: #f3f4f6;
+  --color-neutral-200: #e5e7eb;
+  --color-neutral-300: #d1d5db;
+  --color-neutral-400: #9ca3af;
+  --color-neutral-500: #6b7280;
+  --color-neutral-600: #374151;
+  --color-neutral-700: #1f2937;
+  --color-neutral-800: #111827;
+  --color-neutral-900: #0f172a;
+
+  /* Фон приложения */
+  --color-background: var(--color-neutral-50);
+  --color-surface: #ffffff;
+  --color-white: #ffffff;
+  --color-gray-100: #f3f4f6;
+  --color-gray-200: #e5e7eb;
+
+  /* Границы */
+  --color-border: var(--color-neutral-300);
+  --color-border-light: var(--color-neutral-200);
+  --color-border-medium: var(--color-neutral-300);
+
+  /* Канальные состояния */
+  --color-channel-connected: var(--color-success-light);
+  --color-channel-connected-border: var(--color-success-border);
+  --color-channel-unavailable: var(--color-error-light);
+  --color-channel-unavailable-border: var(--color-error-border);
+  --color-channel-idle: var(--color-neutral-100);
+  --color-channel-idle-border: var(--color-neutral-200);
+
+  /* Интерактивные элементы */
+  --color-button-danger: var(--color-error);
+  --color-button-danger-hover: #b91c1c;
+  --color-button-danger-active: #991b1b;
+  --color-error-hover: #b91c1c;
+  --color-error-active: #991b1b;
+
+  /* Логи */
+  --color-logs-background: #f8f9fa;
+  --color-logs-border: var(--color-neutral-200);
+
+  /* Скроллбар */
+  --color-scrollbar-track: #f1f5f9;
+  --color-scrollbar-thumb: #cbd5e1;
+  --color-scrollbar-thumb-hover: #94a3b8;
 }
